@@ -1,4 +1,4 @@
-import { Payment } from "@prisma/client";
+import { type Payment } from "@prisma/client";
 import {
   Table,
   TableBody,

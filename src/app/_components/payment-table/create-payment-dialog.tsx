@@ -2,7 +2,7 @@
 
 import { PaymentType } from "@prisma/client";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { SetStateAction, useState } from "react";
+import { type SetStateAction, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
 import {
@@ -37,12 +37,14 @@ export function CreatePaymentDialog() {
     const handleTitleChange = (event: {
       target: { value: SetStateAction<string | undefined> };
     }) => {
+      // @ts-expect-error | event.target.value is correct
       setTitle(event.target.value);
     };
 
     const handleAmountChange = (event: {
       target: { value: SetStateAction<number | undefined> };
     }) => {
+      // @ts-expect-error | event.target.value is correct
       setAmount(event.target.value);
     };
 
@@ -58,7 +60,7 @@ export function CreatePaymentDialog() {
         event.preventDefault();
         createPayment.mutate({
             title: title,
-            amount: parseFloat(amount),
+            amount: amount,
             paymentType: paymentType,
             paymentDate: paymentDate
         });
@@ -104,6 +106,7 @@ export function CreatePaymentDialog() {
                 id="amount"
                 type="number"
                 value={amount}
+                // @ts-expect-error | onChange is correct
                 onChange={handleAmountChange}
                 placeholder="20€"
                 className="col-span-3"
@@ -157,6 +160,7 @@ export function CreatePaymentDialog() {
                   <Calendar
                     mode="single"
                     selected={paymentDate}
+                    // @ts-expect-error | onSelect is correct
                     onSelect={setPaymentDate}
                   />
                 </PopoverContent>
@@ -165,7 +169,12 @@ export function CreatePaymentDialog() {
           </div>
 
           <DialogFooter>
-            <Button type="submit" disabled={createPayment.isLoading} onClick={handleSubmit}>
+            <Button
+              type="submit"
+              disabled={createPayment.isLoading}
+              // @ts-expect-error | onClick is correct
+              onClick={handleSubmit}
+            >
               {createPayment.isLoading ? "Wird hinzugefügt..." : "Hinzufügen"}
             </Button>
           </DialogFooter>

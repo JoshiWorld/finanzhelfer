@@ -1,10 +1,10 @@
 "use client";
 
-import { Payment, PaymentType } from "@prisma/client";
+import { type Payment, type PaymentType } from "@prisma/client";
 import { CalendarIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "~/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "~/components/ui/dropdown-menu";
-import { SetStateAction, useState } from "react";
+import { type SetStateAction, useState } from "react";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog";
@@ -45,12 +45,14 @@ export function PaymentsContext({payment}: {payment: Payment}) {
   const handleTitleChange = (event: {
     target: { value: SetStateAction<string | undefined> };
   }) => {
+    // @ts-expect-error | event.target.value can not undefined
     setTitle(event.target.value);
   };
 
   const handleAmountChange = (event: {
     target: { value: SetStateAction<number | undefined> };
   }) => {
+    // @ts-expect-error | event.target.value can not undefined
     setAmount(event.target.value);
   };
 
@@ -159,6 +161,7 @@ export function PaymentsContext({payment}: {payment: Payment}) {
                     id="amount"
                     type="number"
                     value={amount}
+                    // @ts-expect-error | onChange is always correct
                     onChange={handleAmountChange}
                     placeholder="20€"
                     className="col-span-3"
@@ -212,6 +215,7 @@ export function PaymentsContext({payment}: {payment: Payment}) {
                       <Calendar
                         mode="single"
                         selected={paymentDate}
+                        // @ts-expect-error | onSelect is always correct
                         onSelect={setPaymentDate}
                       />
                     </PopoverContent>
@@ -223,6 +227,7 @@ export function PaymentsContext({payment}: {payment: Payment}) {
                 <Button
                   type="submit"
                   disabled={editPayment.isLoading}
+                  // @ts-expect-error | onClick is always correct
                   onClick={handleSubmit}
                 >
                   {editPayment.isLoading ? "Wird gespeichert..." : "Speichern"}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { MonthSelect } from "./month-select";
 import { PaymentsTable } from "./payments-table";
-import { Payment } from "@prisma/client";
+import { type Payment } from "@prisma/client";
 
 export function InvoicesTable({ payments }: { payments: Payment[] }) {
   const [selectedMonth, setSelectedMonth] = useState(
