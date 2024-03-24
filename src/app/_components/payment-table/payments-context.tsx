@@ -67,7 +67,7 @@ export function PaymentsContext({payment}: {payment: Payment}) {
     editPayment.mutate({
       id: payment.id,
       title: title,
-      amount: amount,
+      amount: parseFloat(amount.toString()),
       paymentType: paymentType,
       paymentDate: paymentDate,
     });
