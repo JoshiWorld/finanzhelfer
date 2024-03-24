@@ -19,10 +19,6 @@ RUN \
     else echo "Lockfile not found." && exit 1; \
     fi
 
-# Run Prisma schema migration and generation
-COPY prisma ./
-RUN npx prisma generate
-
 ##### BUILDER
 
 FROM --platform=linux/amd64 node:20-alpine AS builder
