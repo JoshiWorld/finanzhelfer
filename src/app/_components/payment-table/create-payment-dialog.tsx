@@ -60,7 +60,7 @@ export function CreatePaymentDialog() {
         event.preventDefault();
         createPayment.mutate({
             title: title,
-            amount: amount,
+            amount: parseFloat(amount.toString()),
             paymentType: paymentType,
             paymentDate: paymentDate
         });
