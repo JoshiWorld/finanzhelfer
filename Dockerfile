@@ -20,7 +20,6 @@ RUN \
     fi
 
 # Run Prisma schema migration and generation
-COPY .env .env
 COPY prisma ./
 RUN npx prisma generate
 RUN npx prisma migrate deploy --preview-feature
