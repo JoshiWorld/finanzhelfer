@@ -22,7 +22,6 @@ RUN \
 # Run Prisma schema migration and generation
 COPY prisma ./
 RUN npx prisma generate
-RUN npx prisma migrate deploy --preview-feature
 
 ##### BUILDER
 
