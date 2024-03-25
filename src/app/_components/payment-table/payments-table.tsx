@@ -12,7 +12,10 @@ import {
 import { PaymentsContext } from "./payments-context";
 
 export function PaymentsTable({ payments }: { payments: Payment[] }) {
-    const totalAmount = payments.reduce((total, payment) => total + payment.amount, 0);
+    const totalAmount =
+      Math.ceil(
+        payments.reduce((total, payment) => total + payment.amount, 0) * 100,
+      ) / 100;
 
     return (
       <>
@@ -33,7 +36,7 @@ export function PaymentsTable({ payments }: { payments: Payment[] }) {
                 <TableCell className="font-medium">{payment.title}</TableCell>
                 <TableCell>{payment.paymentType}</TableCell>
                 <TableCell>
-                  {payment.paymentDate.toLocaleDateString()}
+                  Am {payment.paymentDate.toLocaleDateString().split('.')[0]}. des Monats ({payment.paymentDate.toLocaleDateString()})
                 </TableCell>
                 <TableCell className="text-right">{payment.amount} €</TableCell>
                 <TableCell className="text-right">

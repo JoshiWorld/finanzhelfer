@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { MonthSelect } from "./month-select";
 import { PaymentsTable } from "./payments-table";
-import { type Payment } from "@prisma/client";
+import { PaymentType, type Payment } from "@prisma/client";
 
 export function InvoicesTable({ payments }: { payments: Payment[] }) {
   const [selectedMonth, setSelectedMonth] = useState(
@@ -23,7 +23,7 @@ export function InvoicesTable({ payments }: { payments: Payment[] }) {
         payments={payments
           .filter((payment) => {
             const paymentMonth = new Date(payment.paymentDate).getMonth();
-            return paymentMonth === monthIndex;
+            return paymentMonth === monthIndex || payment.paymentType === PaymentType.MONTHLY;
           })
           .sort((a, b) => {
             const dayA = new Date(a.paymentDate).getDate();
